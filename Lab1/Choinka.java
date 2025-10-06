@@ -5,7 +5,7 @@ public class Choinka {
             return;
         }
 
-        int height = Integer.valueOf(args[0]);
+        int height = Integer.parseInt(args[0]);
 
         for (int i = 1; i <= height; i++) {
             printSpaces(height - i);
