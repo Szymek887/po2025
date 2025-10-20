@@ -1,6 +1,9 @@
 public class CodingBat {
     public static void main(String[] args) {
         CodingBat cb = new CodingBat();
+
+        int[] numbers = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+        System.out.println(cb.countEvens(numbers));
     }
 
     public boolean sleepIn(boolean weekday, boolean vacation) {
