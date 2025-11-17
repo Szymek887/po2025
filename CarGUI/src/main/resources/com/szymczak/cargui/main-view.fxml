@@ -20,83 +20,81 @@
             fx:controller="com.szymczak.cargui.CarController">
     <top>
         <MenuBar>
-            <menus>
-                <Menu text="File">
-                    <MenuItem text="New" />
-                    <MenuItem text="Open" />
-                    <MenuItem text="Save" />
-                </Menu>
-                <Menu text="Edit">
-                    <MenuItem text="Cut" />
-                    <MenuItem text="Copy" />
-                    <MenuItem text="Paste" />
-                </Menu>
-            </menus>
+            <Menu text="File">
+                <MenuItem text="New"/>
+                <MenuItem text="Open"/>
+                <MenuItem text="Save"/>
+            </Menu>
+            <Menu text="Edit">
+                <MenuItem text="Cut"/>
+                <MenuItem text="Copy"/>
+                <MenuItem text="Paste"/>
+            </Menu>
         </MenuBar>
     </top>
     <left>
         <VBox>
             <TitledPane text="🚗 Car Details">
                 <VBox>
-                    <Label text="Model" />
-                    <TextField />
-                    <Label text="Registration Number" />
-                    <TextField />
-                    <Label text="Weight" />
-                    <TextField />
-                    <Label text="Speed" />
-                    <TextField />
+                    <Label text="Model"/>
+                    <TextField/>
+                    <Label text="Registration Number"/>
+                    <TextField/>
+                    <Label text="Weight"/>
+                    <TextField/>
+                    <Label text="Speed"/>
+                    <TextField/>
                     <HBox spacing="10">
-                        <Button text="Turn On" />
-                        <Button text="Turn Off" />
+                        <Button text="Turn On"/>
+                        <Button text="Turn Off"/>
                     </HBox>
                 </VBox>
             </TitledPane>
             <TitledPane text="⚙️ Gearbox">
                 <VBox>
-                    <Label text="Name" />
-                    <TextField />
-                    <Label text="Price" />
-                    <TextField />
-                    <Label text="Weight" />
-                    <TextField />
-                    <Label text="Gear" />
-                    <TextField />
+                    <Label text="Name"/>
+                    <TextField/>
+                    <Label text="Price"/>
+                    <TextField/>
+                    <Label text="Weight"/>
+                    <TextField/>
+                    <Label text="Gear"/>
+                    <TextField/>
                     <HBox spacing="10">
-                        <Button text="Increase Gear" />
-                        <Button text="Decrease Gear" />
+                        <Button text="Increase Gear"/>
+                        <Button text="Decrease Gear"/>
                     </HBox>
                 </VBox>
             </TitledPane>
             <TitledPane text="⛽ Engine">
                 <VBox>
-                    <Label text="Name" />
-                    <TextField />
-                    <Label text="Price" />
-                    <TextField />
-                    <Label text="Weight" />
-                    <TextField />
-                    <Label text="RPM" />
-                    <TextField />
+                    <Label text="Name"/>
+                    <TextField/>
+                    <Label text="Price"/>
+                    <TextField/>
+                    <Label text="Weight"/>
+                    <TextField/>
+                    <Label text="RPM"/>
+                    <TextField/>
                     <HBox spacing="10">
-                        <Button text="Speed Up" />
-                        <Button text="Speed Down" />
+                        <Button text="Speed Up"/>
+                        <Button text="Speed Down"/>
                     </HBox>
                 </VBox>
             </TitledPane>
             <TitledPane text="🦶 Clutch">
                 <VBox>
-                    <Label text="Name" />
-                    <TextField />
-                    <Label text="Price" />
-                    <TextField />
-                    <Label text="Weight" />
-                    <TextField />
-                    <Label text="Status" />
-                    <TextField />
+                    <Label text="Name"/>
+                    <TextField/>
+                    <Label text="Price"/>
+                    <TextField/>
+                    <Label text="Weight"/>
+                    <TextField/>
+                    <Label text="Status"/>
+                    <TextField/>
                     <HBox spacing="10">
-                        <Button text="Press" />
-                        <Button text="Depress" />
+                        <Button text="Press"/>
+                        <Button text="Depress"/>
                     </HBox>
                 </VBox>
             </TitledPane>
@@ -105,16 +103,14 @@
     <center>
         <VBox>
             <HBox alignment="TOP_CENTER" spacing="10">
-                <Label text="Select Car:" />
+                <Label text="Select Car:"/>
                 <ComboBox promptText="Choose a car..."/>
-                <Button text="Add Car" />
-                <Button text="Remove Car" />
+                <Button text="Add Car"/>
+                <Button text="Remove Car"/>
             </HBox>
             <Text>Map</Text>
             <ImageView>
-                <image>
-                    <Image url="@../images/car.jpg" />
-                </image>
+                <Image url="@../images/car.jpg"/>
             </ImageView>
         </VBox>
     </center>
