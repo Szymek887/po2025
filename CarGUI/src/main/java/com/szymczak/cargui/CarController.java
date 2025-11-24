@@ -166,7 +166,7 @@ public class CarController {
      * This method is automatically called after the fxml file has been loaded.
      */
     @FXML
-    public void initialize() {
+    private void initialize() {
         this.car = new Car();
 
         Car car2 = new Car("Sporty",
@@ -210,7 +210,8 @@ public class CarController {
         this.updateView();
     }
 
-    @FXML void handleCarComboBox() {
+    @FXML
+    private void handleCarComboBox() {
         Car selectedCar = this.carComboBox.getSelectionModel().getSelectedItem();
         if (selectedCar != null) {
             this.car = selectedCar;
