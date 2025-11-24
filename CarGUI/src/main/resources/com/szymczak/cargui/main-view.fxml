@@ -17,99 +17,100 @@
 
 <BorderPane xmlns="http://javafx.com/javafx/21"
             xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="com.szymczak.cargui.CarController">
+            fx:controller="com.szymczak.cargui.CarController"
+            fx:id="mainBorderPane">
     <top>
-        <MenuBar>
-            <Menu text="File">
-                <MenuItem text="New"/>
-                <MenuItem text="Open"/>
-                <MenuItem text="Save"/>
+        <MenuBar fx:id="mainMenuBar">
+            <Menu text="File" fx:id="fileMenu">
+                <MenuItem text="New" fx:id="newMenuItem"/>
+                <MenuItem text="Open" fx:id="openMenuItem"/>
+                <MenuItem text="Save" fx:id="saveMenuItem"/>
             </Menu>
-            <Menu text="Edit">
-                <MenuItem text="Cut"/>
-                <MenuItem text="Copy"/>
-                <MenuItem text="Paste"/>
+            <Menu text="Edit" fx:id="editMenu">
+                <MenuItem text="Cut" fx:id="cutMenuItem"/>
+                <MenuItem text="Copy" fx:id="copyMenuItem"/>
+                <MenuItem text="Paste" fx:id="pasteMenuItem"/>
             </Menu>
         </MenuBar>
     </top>
     <left>
-        <VBox>
-            <TitledPane text="🚗 Car Details">
+        <VBox fx:id="leftVBox">
+            <TitledPane text="🚗 Car Details" fx:id="carDetailsPane">
                 <VBox>
                     <Label text="Model"/>
-                    <TextField/>
+                    <TextField fx:id="modelTextField"/>
                     <Label text="Registration Number"/>
-                    <TextField/>
+                    <TextField fx:id="regNumberTextField"/>
                     <Label text="Weight"/>
-                    <TextField/>
+                    <TextField fx:id="carWeightTextField"/>
                     <Label text="Speed"/>
-                    <TextField/>
+                    <TextField fx:id="speedTextField"/>
                     <HBox spacing="10">
-                        <Button text="Turn On"/>
-                        <Button text="Turn Off"/>
+                        <Button text="Turn On" fx:id="turnOnButton" onAction="#handleTurnOnButton"/>
+                        <Button text="Turn Off" fx:id="turnOffButton" onAction="#handleTurnOffButton"/>
                     </HBox>
                 </VBox>
             </TitledPane>
-            <TitledPane text="⚙️ Gearbox">
+            <TitledPane text="⚙️ Gearbox" fx:id="gearboxPane">
                 <VBox>
                     <Label text="Name"/>
-                    <TextField/>
+                    <TextField fx:id="gearboxNameTextField"/>
                     <Label text="Price"/>
-                    <TextField/>
+                    <TextField fx:id="gearboxPriceTextField"/>
                     <Label text="Weight"/>
-                    <TextField/>
+                    <TextField fx:id="gearboxWeightTextField"/>
                     <Label text="Gear"/>
-                    <TextField/>
+                    <TextField fx:id="gearTextField"/>
                     <HBox spacing="10">
-                        <Button text="Increase Gear"/>
-                        <Button text="Decrease Gear"/>
+                        <Button text="Increase Gear" fx:id="increaseGearButton" onAction="#handleIncreaseGearButton"/>
+                        <Button text="Decrease Gear" fx:id="decreaseGearButton" onAction="#handleDecreaseGearButton"/>
                     </HBox>
                 </VBox>
             </TitledPane>
-            <TitledPane text="⛽ Engine">
+            <TitledPane text="⛽ Engine" fx:id="enginePane">
                 <VBox>
                     <Label text="Name"/>
-                    <TextField/>
+                    <TextField fx:id="engineNameTextField"/>
                     <Label text="Price"/>
-                    <TextField/>
+                    <TextField fx:id="enginePriceTextField"/>
                     <Label text="Weight"/>
-                    <TextField/>
+                    <TextField fx:id="engineWeightTextField"/>
                     <Label text="RPM"/>
-                    <TextField/>
+                    <TextField fx:id="rpmTextField"/>
                     <HBox spacing="10">
-                        <Button text="Speed Up"/>
-                        <Button text="Speed Down"/>
+                        <Button text="Speed Up" fx:id="speedUpButton"/>
+                        <Button text="Speed Down" fx:id="speedDownButton"/>
                     </HBox>
                 </VBox>
             </TitledPane>
-            <TitledPane text="🦶 Clutch">
+            <TitledPane text="🦶 Clutch" fx:id="clutchPane">
                 <VBox>
                     <Label text="Name"/>
-                    <TextField/>
+                    <TextField fx:id="clutchNameTextField"/>
                     <Label text="Price"/>
-                    <TextField/>
+                    <TextField fx:id="clutchPriceTextField"/>
                     <Label text="Weight"/>
-                    <TextField/>
+                    <TextField fx:id="clutchWeightTextField"/>
                     <Label text="Status"/>
-                    <TextField/>
+                    <TextField fx:id="clutchStatusTextField"/>
                     <HBox spacing="10">
-                        <Button text="Press"/>
-                        <Button text="Depress"/>
+                        <Button text="Press" fx:id="pressClutchButton"/>
+                        <Button text="Depress" fx:id="depressClutchButton"/>
                     </HBox>
                 </VBox>
             </TitledPane>
         </VBox>
     </left>
     <center>
-        <VBox>
-            <HBox alignment="TOP_CENTER" spacing="10">
+        <VBox fx:id="centerVBox">
+            <HBox alignment="TOP_CENTER" spacing="10" fx:id="selectionHBox">
                 <Label text="Select Car:"/>
-                <ComboBox promptText="Choose a car..."/>
-                <Button text="Add Car"/>
-                <Button text="Remove Car"/>
+                <ComboBox promptText="Choose a car..." fx:id="carComboBox" onAction="#handleCarComboBox"/>
+                <Button text="Add Car" fx:id="addCarButton"/>
+                <Button text="Remove Car" fx:id="removeCarButton"/>
             </HBox>
-            <Text>Map</Text>
-            <ImageView>
+            <Text text="Map" fx:id="mapText"/>
+            <ImageView fx:id="carImageView">
                 <Image url="@../images/car.jpg"/>
             </ImageView>
         </VBox>
