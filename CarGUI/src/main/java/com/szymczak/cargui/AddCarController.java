@@ -1,5 +1,7 @@
 package com.szymczak.cargui;
 
+import com.szymczak.car.Car;
+import com.szymczak.car.Clutch;
 import com.szymczak.car.Engine;
 import com.szymczak.car.Gearbox;
 import javafx.fxml.FXML;
@@ -10,6 +12,12 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class AddCarController {
+    private MainController mainController;
+
+    public void setMainController(MainController mainController) {
+        this.mainController = mainController;
+    }
+
     @FXML
     private Text errorText;
 
@@ -71,6 +79,11 @@ public class AddCarController {
             this.errorText.setText("Please fill out all fields");
             this.errorText.setVisible(true);
             return;
+        }
+
+        Car newCar = new Car(model, regNumber, weight, engine, gearbox, new Clutch("test", "test", 100, 100));
+        if (mainController != null) {
+            mainController.addCar(newCar);
         }
 
         Stage stage = (Stage) confirmButton.getScene().getWindow();

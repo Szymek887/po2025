@@ -6,6 +6,7 @@ import com.szymczak.car.Engine;
 import com.szymczak.car.Gearbox;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -270,10 +271,23 @@ public class MainController {
     }
 
     private void openAddCarWindow() throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/szymczak/cargui/add-car-view.fxml"));
-        Stage stage = new Stage();
-        stage.setScene(new Scene(loader.load()));
-        stage.setTitle("Add car");
-        stage.show();
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/szymczak/cargui/add-car-view.fxml"));
+            Parent root = loader.load();
+
+            AddCarController controller = loader.getController();
+            controller.setMainController(this);
+
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Add car");
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void addCar(Car car) {
+        this.carComboBox.getItems().add(car);
     }
 }
