@@ -15,6 +15,7 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.control.ComboBox?>
 
+<?import javafx.scene.control.ScrollPane?>
 <BorderPane xmlns="http://javafx.com/javafx/21"
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="com.szymczak.cargui.MainController"
@@ -42,72 +43,74 @@
         </VBox>
     </top>
     <left>
-        <VBox fx:id="leftVBox">
-            <TitledPane text="🚗 Car Details" fx:id="carDetailsPane">
-                <VBox>
-                    <Label text="Model"/>
-                    <TextField fx:id="modelTextField" editable="false"/>
-                    <Label text="Registration Number"/>
-                    <TextField fx:id="regNumberTextField" editable="false"/>
-                    <Label text="Weight"/>
-                    <TextField fx:id="carWeightTextField" editable="false"/>
-                    <Label text="Speed"/>
-                    <TextField fx:id="speedTextField" editable="false"/>
-                    <HBox spacing="10">
-                        <Button text="Turn On" fx:id="turnOnButton" onAction="#handleTurnOnButton"/>
-                        <Button text="Turn Off" fx:id="turnOffButton" onAction="#handleTurnOffButton"/>
-                    </HBox>
-                </VBox>
-            </TitledPane>
-            <TitledPane text="⚙️ Gearbox" fx:id="gearboxPane">
-                <VBox>
-                    <Label text="Name"/>
-                    <TextField fx:id="gearboxNameTextField" editable="false"/>
-                    <Label text="Price"/>
-                    <TextField fx:id="gearboxPriceTextField" editable="false"/>
-                    <Label text="Weight"/>
-                    <TextField fx:id="gearboxWeightTextField" editable="false"/>
-                    <Label text="Gear"/>
-                    <TextField fx:id="gearTextField" editable="false"/>
-                    <HBox spacing="10">
-                        <Button text="Increase Gear" fx:id="increaseGearButton" onAction="#handleIncreaseGearButton"/>
-                        <Button text="Decrease Gear" fx:id="decreaseGearButton" onAction="#handleDecreaseGearButton"/>
-                    </HBox>
-                </VBox>
-            </TitledPane>
-            <TitledPane text="⛽ Engine" fx:id="enginePane">
-                <VBox>
-                    <Label text="Name"/>
-                    <TextField fx:id="engineNameTextField" editable="false"/>
-                    <Label text="Price"/>
-                    <TextField fx:id="enginePriceTextField" editable="false"/>
-                    <Label text="Weight"/>
-                    <TextField fx:id="engineWeightTextField" editable="false"/>
-                    <Label text="RPM"/>
-                    <TextField fx:id="rpmTextField" editable="false"/>
-                    <HBox spacing="10">
-                        <Button text="Speed Up" fx:id="speedUpButton"/>
-                        <Button text="Speed Down" fx:id="speedDownButton"/>
-                    </HBox>
-                </VBox>
-            </TitledPane>
-            <TitledPane text="🦶 Clutch" fx:id="clutchPane">
-                <VBox>
-                    <Label text="Name"/>
-                    <TextField fx:id="clutchNameTextField" editable="false"/>
-                    <Label text="Price"/>
-                    <TextField fx:id="clutchPriceTextField" editable="false"/>
-                    <Label text="Weight"/>
-                    <TextField fx:id="clutchWeightTextField" editable="false"/>
-                    <Label text="Status"/>
-                    <TextField fx:id="clutchStatusTextField" editable="false"/>
-                    <HBox spacing="10">
-                        <Button text="Press" fx:id="pressClutchButton"/>
-                        <Button text="Depress" fx:id="depressClutchButton"/>
-                    </HBox>
-                </VBox>
-            </TitledPane>
-        </VBox>
+        <ScrollPane fitToWidth="true">
+            <VBox fx:id="leftVBox">
+                <TitledPane text="🚗 Car Details" fx:id="carDetailsPane">
+                    <VBox>
+                        <Label text="Model"/>
+                        <TextField fx:id="modelTextField" editable="false"/>
+                        <Label text="Registration Number"/>
+                        <TextField fx:id="regNumberTextField" editable="false"/>
+                        <Label text="Weight"/>
+                        <TextField fx:id="carWeightTextField" editable="false"/>
+                        <Label text="Speed"/>
+                        <TextField fx:id="speedTextField" editable="false"/>
+                        <HBox spacing="10">
+                            <Button text="Turn On" fx:id="turnOnButton" onAction="#handleTurnOnButton"/>
+                            <Button text="Turn Off" fx:id="turnOffButton" onAction="#handleTurnOffButton"/>
+                        </HBox>
+                    </VBox>
+                </TitledPane>
+                <TitledPane text="⚙️ Gearbox" fx:id="gearboxPane">
+                    <VBox>
+                        <Label text="Name"/>
+                        <TextField fx:id="gearboxNameTextField" editable="false"/>
+                        <Label text="Price"/>
+                        <TextField fx:id="gearboxPriceTextField" editable="false"/>
+                        <Label text="Weight"/>
+                        <TextField fx:id="gearboxWeightTextField" editable="false"/>
+                        <Label text="Gear"/>
+                        <TextField fx:id="gearTextField" editable="false"/>
+                        <HBox spacing="10">
+                            <Button text="Increase Gear" fx:id="increaseGearButton" onAction="#handleIncreaseGearButton"/>
+                            <Button text="Decrease Gear" fx:id="decreaseGearButton" onAction="#handleDecreaseGearButton"/>
+                        </HBox>
+                    </VBox>
+                </TitledPane>
+                <TitledPane text="⛽ Engine" fx:id="enginePane">
+                    <VBox>
+                        <Label text="Name"/>
+                        <TextField fx:id="engineNameTextField" editable="false"/>
+                        <Label text="Price"/>
+                        <TextField fx:id="enginePriceTextField" editable="false"/>
+                        <Label text="Weight"/>
+                        <TextField fx:id="engineWeightTextField" editable="false"/>
+                        <Label text="RPM"/>
+                        <TextField fx:id="rpmTextField" editable="false"/>
+                        <HBox spacing="10">
+                            <Button text="Speed Up" fx:id="speedUpButton"/>
+                            <Button text="Speed Down" fx:id="speedDownButton"/>
+                        </HBox>
+                    </VBox>
+                </TitledPane>
+                <TitledPane text="🦶 Clutch" fx:id="clutchPane">
+                    <VBox>
+                        <Label text="Name"/>
+                        <TextField fx:id="clutchNameTextField" editable="false"/>
+                        <Label text="Price"/>
+                        <TextField fx:id="clutchPriceTextField" editable="false"/>
+                        <Label text="Weight"/>
+                        <TextField fx:id="clutchWeightTextField" editable="false"/>
+                        <Label text="Status"/>
+                        <TextField fx:id="clutchStatusTextField" editable="false"/>
+                        <HBox spacing="10">
+                            <Button text="Press" fx:id="pressClutchButton"/>
+                            <Button text="Depress" fx:id="depressClutchButton"/>
+                        </HBox>
+                    </VBox>
+                </TitledPane>
+            </VBox>
+        </ScrollPane>
     </left>
     <center>
         <VBox fx:id="centerVBox">
