@@ -4,7 +4,6 @@ import com.szymczak.car.Car;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
@@ -178,10 +177,10 @@ public class CarController {
         this.carComboBox.getItems().add(car2);
         this.carComboBox.getSelectionModel().select(0);
 
-        this.updateView();
+        this.refresh();
     }
 
-    private void updateView() {
+    private void refresh() {
         this.gearTextField.setText(String.valueOf(this.car.getGear()));
         this.modelTextField.setText(this.car.toString());
     }
@@ -189,25 +188,25 @@ public class CarController {
     @FXML
     private void handleTurnOnButton() {
         this.car.turnOn();
-        this.updateView();
+        this.refresh();
     }
 
     @FXML
     private void handleTurnOffButton() {
         this.car.turnOff();
-        this.updateView();
+        this.refresh();
     }
 
     @FXML
     private void handleIncreaseGearButton() {
         this.car.increaseGear();
-        this.updateView();
+        this.refresh();
     }
 
     @FXML
     private void handleDecreaseGearButton() {
         this.car.decreaseGear();
-        this.updateView();
+        this.refresh();
     }
 
     @FXML
@@ -215,7 +214,7 @@ public class CarController {
         Car selectedCar = this.carComboBox.getSelectionModel().getSelectedItem();
         if (selectedCar != null) {
             this.car = selectedCar;
-            this.updateView();
+            this.refresh();
         }
     }
 }
