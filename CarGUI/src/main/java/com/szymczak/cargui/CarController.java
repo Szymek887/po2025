@@ -1,6 +1,9 @@
 package com.szymczak.cargui;
 
 import com.szymczak.car.Car;
+import com.szymczak.car.Clutch;
+import com.szymczak.car.Engine;
+import com.szymczak.car.Gearbox;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -169,9 +172,11 @@ public class CarController {
         this.car = new Car();
 
         Car car2 = new Car("Sporty",
-                    new com.szymczak.car.Engine("EngineCo", "V8 Turbo", 200),
-                    new com.szymczak.car.Gearbox("GearboxInc", "6-Speed Manual", 150),
-                    new com.szymczak.car.Clutch("ClutchLtd", "Performance Clutch", 50));
+                    "SP 12345",
+                    100,
+                    new Engine("EngineCo", "V8 Turbo", 200, 1000),
+                    new Gearbox("GearboxInc", "6-Speed Manual", 150, 1000),
+                    new Clutch("ClutchLtd", "Performance Clutch", 50, 1000));
 
         this.carComboBox.getItems().add(this.car);
         this.carComboBox.getItems().add(car2);
@@ -181,8 +186,29 @@ public class CarController {
     }
 
     private void refresh() {
-        this.gearTextField.setText(String.valueOf(this.car.getGear()));
+        // Car Fields
         this.modelTextField.setText(this.car.toString());
+        this.regNumberTextField.setText(this.car.getRegNumber());
+        this.carWeightTextField.setText(String.valueOf(this.car.getWeight()));
+        this.speedTextField.setText(String.valueOf(this.car.getSpeed()));
+
+        // Gearbox Fields
+        this.gearboxNameTextField.setText(this.car.getGearboxName());
+        this.gearboxPriceTextField.setText(String.valueOf(this.car.getGearboxPrice()));
+        this.gearboxWeightTextField.setText(String.valueOf(this.car.getGearboxWeight()));
+        this.gearTextField.setText(String.valueOf(this.car.getGear()));
+
+        // Engine Fields
+        this.engineNameTextField.setText(this.car.getEngineName());
+        this.enginePriceTextField.setText(String.valueOf(this.car.getEnginePrice()));
+        this.engineWeightTextField.setText(String.valueOf(this.car.getEngineWeight()));
+        this.rpmTextField.setText(String.valueOf(this.car.getEngineRPM()));
+
+        // Clutch Fields
+        this.clutchNameTextField.setText(this.car.getClutchName());
+        this.clutchPriceTextField.setText(String.valueOf(this.car.getClutchPrice()));
+        this.clutchWeightTextField.setText(String.valueOf(this.car.getClutchWeight()));
+        this.clutchStatusTextField.setText(this.car.getClutchStatus() ? "Pressed" : "Released");
     }
 
     @FXML

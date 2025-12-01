@@ -4,8 +4,8 @@ public class Engine extends Component {
     private int revs;
     private int maxRevs;
 
-    public Engine(String manufacturer, String model, int weight) {
-        super(manufacturer, model, weight);
+    public Engine(String manufacturer, String model, int weight, int price) {
+        super(manufacturer, model, weight, price);
         this.revs = 0;
         this.maxRevs = 4000;
     }
@@ -24,5 +24,9 @@ public class Engine extends Component {
 
     public void decreaseRevs(int decrement) {
         this.revs = Math.max(0, this.revs - decrement);
+    }
+
+    public int getRevs() {
+        return this.revs;
     }
 }

@@ -4,12 +4,12 @@ public class Gearbox extends Component {
     private int gear;
     private final int numberOfGears;
 
-    public Gearbox(String manufacturer, String model, int weight) {
-        this(manufacturer, model, 6, weight);
+    public Gearbox(String manufacturer, String model, int weight, int price) {
+        this(manufacturer, model, 6, weight, price);
     }
 
-    public Gearbox(String manufacturer, String model, int numberOfGears, int weight) {
-        super(manufacturer, model, weight);
+    public Gearbox(String manufacturer, String model, int numberOfGears, int weight, int price) {
+        super(manufacturer, model, weight, price);
         if (numberOfGears < 1) {
             throw new IllegalArgumentException("numberOfGears must be at least 1");
         }

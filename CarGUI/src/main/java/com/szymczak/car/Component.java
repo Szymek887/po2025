@@ -4,11 +4,13 @@ public abstract class Component {
     private final String manufacturer;
     private final String model;
     private final int weight;
+    private final int price;
 
-    public Component(String manufacturer, String model, int weight) {
+    public Component(String manufacturer, String model, int weight, int price) {
         this.manufacturer = manufacturer;
         this.model = model;
         this.weight = weight;
+        this.price = price;
     }
 
     public String getManufacturer() {
@@ -21,5 +23,9 @@ public abstract class Component {
 
     public int getWeight() {
         return this.weight;
+    }
+
+    public int getPrice() {
+        return this.price;
     }
 }

@@ -2,6 +2,9 @@ package com.szymczak.car;
 
 public class Car {
     private final String name;
+    private final String regNumber;
+    private final int weight;
+    private final int speed;
     private final Engine engine;
     private final Gearbox gearbox;
     private final Position position;
@@ -11,15 +14,21 @@ public class Car {
 
     public Car() {
         this.name = "DefaultCar";
-        this.engine = new Engine("DefaultEngineManufacturer", "DefaultEngineModel", 100);
-        this.gearbox = new Gearbox("DefaultGearboxManufacturer", "DefaultGearboxModel", 100);
-        this.clutch = new Clutch("DefaultClutchManufacturer", "DefaultClutchModel", 100);
+        this.regNumber = "XX 00000";
+        this.weight = 100;
+        this.speed = 0;
+        this.engine = new Engine("DefaultEngineManufacturer", "DefaultEngineModel", 100, 1000);
+        this.gearbox = new Gearbox("DefaultGearboxManufacturer", "DefaultGearboxModel", 100, 1000);
+        this.clutch = new Clutch("DefaultClutchManufacturer", "DefaultClutchModel", 100, 1000);
         this.position = new Position();
         this.runningState = false;
     }
 
-    public Car(String name, Engine engine, Gearbox gearbox, Clutch clutch) {
+    public Car(String name, String regNumber, int weight, Engine engine, Gearbox gearbox, Clutch clutch) {
         this.name = name;
+        this.regNumber = regNumber;
+        this.weight = weight;
+        this.speed = 0;
         this.engine = engine;
         this.gearbox = gearbox;
         this.clutch = clutch;
@@ -79,5 +88,61 @@ public class Car {
 
     public int getGear() {
         return this.gearbox.getGear();
+    }
+
+    public String getRegNumber() {
+        return this.regNumber;
+    }
+
+    public int getWeight() {
+        return this.weight;
+    }
+
+    public int getSpeed() {
+        return this.speed;
+    }
+
+    public String getGearboxName() {
+        return this.gearbox.getModel();
+    }
+
+    public int getGearboxPrice() {
+        return this.gearbox.getPrice();
+    }
+
+    public int getGearboxWeight() {
+        return this.gearbox.getWeight();
+    }
+
+    public String getEngineName() {
+        return this.engine.getModel();
+    }
+
+    public int getEnginePrice() {
+        return this.engine.getPrice();
+    }
+
+    public int getEngineWeight() {
+        return this.engine.getWeight();
+    }
+
+    public int getEngineRPM() {
+        return this.engine.getRevs();
+    }
+
+    public String getClutchName() {
+        return this.clutch.getModel();
+    }
+
+    public int getClutchPrice() {
+        return this.clutch.getPrice();
+    }
+
+    public int getClutchWeight() {
+        return this.clutch.getWeight();
+    }
+
+    public boolean getClutchStatus() {
+        return this.clutch.isPressed();
     }
 }
