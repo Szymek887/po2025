@@ -31,6 +31,21 @@ public class AddCarController {
     private Button cancelButton;
 
     @FXML
+    private void initialize() {
+        gearboxComboBox.getItems().addAll(
+                new Gearbox("GearboxCo", "Model A", 5, 150, 1200),
+                new Gearbox("GearboxCo", "Model B", 6, 160, 1500),
+                new Gearbox("Transmissions Inc.", "Model X", 7, 170, 1800)
+        );
+
+        engineComboBox.getItems().addAll(
+                new Engine("EngineWorks", "EcoBoost", 130, 200),
+                new Engine("PowerEngines", "V8 Turbo", 300, 400),
+                new Engine("SpeedMotors", "ElectricX", 200, 300)
+        );
+    }
+
+    @FXML
     private void handleConfirmButton() {
         String model = modelTextField.getText();
         String regNumber = regNumberTextField.getText();
