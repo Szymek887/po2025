@@ -12,6 +12,7 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -169,6 +170,7 @@ public class CarController {
      */
     @FXML
     private void initialize() {
+        // Populate list of cars with sample data
         this.car = new Car();
 
         Car car2 = new Car("Sporty",
@@ -182,6 +184,16 @@ public class CarController {
         this.carComboBox.getItems().add(car2);
         this.carComboBox.getSelectionModel().select(0);
 
+        // Add car icon in default position
+        Image carImage = new Image(getClass().getResource("/com/szymczak/images/car.jpg").toExternalForm());
+        System.out.println("Width: " + carImage.getWidth() + ",Height: " + carImage.getHeight());
+
+        this.carImageView.setImage(carImage);
+
+        this.carImageView.setFitWidth(30);
+        this.carImageView.setFitHeight(20);
+
+        // Initial refresh of GUI fields
         this.refresh();
     }
 
