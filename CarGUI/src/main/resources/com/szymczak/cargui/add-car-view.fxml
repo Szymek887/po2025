@@ -29,7 +29,7 @@
     <ComboBox fx:id="engineComboBox"/>
 
     <HBox>
-        <Button text="Add car" fx:id="confirmButton"/>
+        <Button text="Add car" fx:id="confirmButton" onAction="#handleConfirmButton"/>
         <Button text="Cancel" fx:id="cancelButton"/>
     </HBox>
 </VBox>
