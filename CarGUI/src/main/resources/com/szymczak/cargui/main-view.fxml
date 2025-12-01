@@ -20,18 +20,26 @@
             fx:controller="com.szymczak.cargui.MainController"
             fx:id="mainBorderPane">
     <top>
-        <MenuBar fx:id="mainMenuBar">
-            <Menu text="File" fx:id="fileMenu">
-                <MenuItem text="New" fx:id="newMenuItem"/>
-                <MenuItem text="Open" fx:id="openMenuItem"/>
-                <MenuItem text="Save" fx:id="saveMenuItem"/>
-            </Menu>
-            <Menu text="Edit" fx:id="editMenu">
-                <MenuItem text="Cut" fx:id="cutMenuItem"/>
-                <MenuItem text="Copy" fx:id="copyMenuItem"/>
-                <MenuItem text="Paste" fx:id="pasteMenuItem"/>
-            </Menu>
-        </MenuBar>
+        <VBox>
+            <MenuBar fx:id="mainMenuBar">
+                <Menu text="File" fx:id="fileMenu">
+                    <MenuItem text="New" fx:id="newMenuItem"/>
+                    <MenuItem text="Open" fx:id="openMenuItem"/>
+                    <MenuItem text="Save" fx:id="saveMenuItem"/>
+                </Menu>
+                <Menu text="Edit" fx:id="editMenu">
+                    <MenuItem text="Cut" fx:id="cutMenuItem"/>
+                    <MenuItem text="Copy" fx:id="copyMenuItem"/>
+                    <MenuItem text="Paste" fx:id="pasteMenuItem"/>
+                </Menu>
+            </MenuBar>
+            <HBox spacing="10" fx:id="selectionHBox">
+                <Label text="Select Car:"/>
+                <ComboBox promptText="Choose a car..." fx:id="carComboBox" onAction="#handleCarComboBox"/>
+                <Button text="Add Car" fx:id="addCarButton" onAction="#handleAddCarButton"/>
+                <Button text="Remove Car" fx:id="removeCarButton"/>
+            </HBox>
+        </VBox>
     </top>
     <left>
         <VBox fx:id="leftVBox">
@@ -103,12 +111,6 @@
     </left>
     <center>
         <VBox fx:id="centerVBox">
-            <HBox alignment="TOP_CENTER" spacing="10" fx:id="selectionHBox">
-                <Label text="Select Car:"/>
-                <ComboBox promptText="Choose a car..." fx:id="carComboBox" onAction="#handleCarComboBox"/>
-                <Button text="Add Car" fx:id="addCarButton" onAction="#handleAddCarButton"/>
-                <Button text="Remove Car" fx:id="removeCarButton"/>
-            </HBox>
             <Text text="Map" fx:id="mapText"/>
             <ImageView fx:id="carImageView">
                 <Image url="@../images/car.jpg"/>
