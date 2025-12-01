@@ -6,9 +6,13 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class AddCarController {
+    @FXML
+    private Text errorText;
+
     @FXML
     private TextField modelTextField;
 
@@ -55,13 +59,19 @@ public class AddCarController {
         try {
             weight = Integer.parseInt(weightTextField.getText());
         } catch (NumberFormatException e) {
-            System.out.println("Invalid weight input");
+            this.errorText.setText("Weight should be a number");
+            this.errorText.setVisible(true);
             return;
         }
 
         Gearbox gearbox = gearboxComboBox.getSelectionModel().getSelectedItem();
         Engine engine = engineComboBox.getSelectionModel().getSelectedItem();
-        System.out.println("Car added: " + model + ", " + regNumber + ", " + weight + ", " + gearbox + ", " + engine);
+
+        if (model.isEmpty() || regNumber.isEmpty() || gearbox == null || engine == null) {
+            this.errorText.setText("Please fill out all fields");
+            this.errorText.setVisible(true);
+            return;
+        }
 
         Stage stage = (Stage) confirmButton.getScene().getWindow();
         stage.close();

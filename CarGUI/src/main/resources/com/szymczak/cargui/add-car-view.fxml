@@ -7,6 +7,7 @@
 <?import javafx.scene.layout.*?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.text.Text?>
 <VBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
       fx:controller="com.szymczak.cargui.AddCarController"
@@ -16,6 +17,8 @@
     <padding>
         <Insets top="10" right="10" bottom="10" left="10"/>
     </padding>
+    <Text fx:id="errorText" visible="false" style="-fx-fill: red;"/>
+
     <Label text="Model:"/>
     <TextField fx:id="modelTextField"/>
     <Label text="Registration Number:"/>
