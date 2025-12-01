@@ -13,6 +13,11 @@ public abstract class Component {
         this.price = price;
     }
 
+    @Override
+    public String toString() {
+        return this.manufacturer + " " + this.model;
+    }
+
     public String getManufacturer() {
         return this.manufacturer;
     }
