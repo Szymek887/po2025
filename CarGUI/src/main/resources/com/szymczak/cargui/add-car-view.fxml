@@ -30,6 +30,6 @@
 
     <HBox>
         <Button text="Add car" fx:id="confirmButton" onAction="#handleConfirmButton"/>
-        <Button text="Cancel" fx:id="cancelButton"/>
+        <Button text="Cancel" fx:id="cancelButton" onAction="#handleCancelButton"/>
     </HBox>
 </VBox>

@@ -51,4 +51,10 @@ public class AddCarController {
         Stage stage = (Stage) confirmButton.getScene().getWindow();
         stage.close();
     }
+
+    @FXML
+    private void handleCancelButton() {
+        Stage stage = (Stage) cancelButton.getScene().getWindow();
+        stage.close();
+    }
 }
