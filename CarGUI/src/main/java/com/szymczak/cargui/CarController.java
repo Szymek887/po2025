@@ -193,6 +193,9 @@ public class CarController {
         this.carImageView.setFitWidth(30);
         this.carImageView.setFitHeight(20);
 
+        this.carImageView.setTranslateX(0);
+        this.carImageView.setTranslateY(0);
+
         // Initial refresh of GUI fields
         this.refresh();
     }
