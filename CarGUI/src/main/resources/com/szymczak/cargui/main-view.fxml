@@ -17,7 +17,7 @@
 
 <BorderPane xmlns="http://javafx.com/javafx/21"
             xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="com.szymczak.cargui.CarController"
+            fx:controller="com.szymczak.cargui.MainController"
             fx:id="mainBorderPane">
     <top>
         <MenuBar fx:id="mainMenuBar">

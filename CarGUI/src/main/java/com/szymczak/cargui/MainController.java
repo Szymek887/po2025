@@ -19,7 +19,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
-public class CarController {
+public class MainController {
     private Car car;
 
     // --- Layout Containers ---
