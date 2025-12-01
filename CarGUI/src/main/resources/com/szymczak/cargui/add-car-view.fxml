@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.geometry.Insets?>
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.szymczak.cargui.AddCarController"
+      prefHeight="400.0" prefWidth="400.0"
+      spacing="5"
+>
+    <padding>
+        <Insets top="10" right="10" bottom="10" left="10"/>
+    </padding>
+    <Label text="Model:"/>
+    <TextField fx:id="modelTextField"/>
+    <Label text="Registration Number:"/>
+    <TextField fx:id="regNumberTextField"/>
+    <Label text="Weight:"/>
+    <TextField fx:id="weightTextField"/>
+
+    <Label text="Gearbox:"/>
+    <ComboBox fx:id="gearboxComboBox"/>
+    <Label text="Engine:"/>
+    <ComboBox fx:id="engineComboBox"/>
+
+    <HBox>
+        <Button text="Add car" fx:id="confirmButton"/>
+        <Button text="Cancel" fx:id="cancelButton"/>
+    </HBox>
+</VBox>

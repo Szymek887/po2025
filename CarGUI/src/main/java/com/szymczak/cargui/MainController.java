@@ -5,6 +5,8 @@ import com.szymczak.car.Clutch;
 import com.szymczak.car.Engine;
 import com.szymczak.car.Gearbox;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Menu;
@@ -18,6 +20,9 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
+
+import java.io.IOException;
 
 public class MainController {
     private Car car;
@@ -257,5 +262,18 @@ public class MainController {
             this.car = selectedCar;
             this.refresh();
         }
+    }
+
+    @FXML
+    private void handleAddCarButton() throws IOException {
+        this.openAddCarWindow();
+    }
+
+    private void openAddCarWindow() throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/szymczak/cargui/add-car-view.fxml"));
+        Stage stage = new Stage();
+        stage.setScene(new Scene(loader.load()));
+        stage.setTitle("Add car");
+        stage.show();
     }
 }

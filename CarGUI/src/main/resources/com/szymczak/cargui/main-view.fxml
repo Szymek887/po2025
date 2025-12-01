@@ -106,7 +106,7 @@
             <HBox alignment="TOP_CENTER" spacing="10" fx:id="selectionHBox">
                 <Label text="Select Car:"/>
                 <ComboBox promptText="Choose a car..." fx:id="carComboBox" onAction="#handleCarComboBox"/>
-                <Button text="Add Car" fx:id="addCarButton"/>
+                <Button text="Add Car" fx:id="addCarButton" onAction="#handleAddCarButton"/>
                 <Button text="Remove Car" fx:id="removeCarButton"/>
             </HBox>
             <Text text="Map" fx:id="mapText"/>
