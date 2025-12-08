@@ -61,6 +61,7 @@ public class MainController implements Listener {
         }
         this.carImageView.setTranslateX(0);
         this.carImageView.setTranslateY(0);
+        this.carImageView.setMouseTransparent(true);
 
         if (!carComboBox.getItems().isEmpty()) {
             this.selectCar(carComboBox.getItems().getFirst());
