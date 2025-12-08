@@ -1,7 +1,7 @@
 package com.szymczak.car;
 
 public class Clutch extends Component {
-    private boolean clutchState;
+    private volatile boolean clutchState;
 
     public Clutch(String manufacturer, String model, int weight, int price) {
         super(manufacturer, model, weight, price);

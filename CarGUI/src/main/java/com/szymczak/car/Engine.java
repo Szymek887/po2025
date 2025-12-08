@@ -1,7 +1,7 @@
 package com.szymczak.car;
 
 public class Engine extends Component {
-    private int revs;
+    private volatile int revs;
     private int maxRevs;
 
     public Engine(String manufacturer, String model, int weight, int price) {

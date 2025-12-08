@@ -1,7 +1,7 @@
 package com.szymczak.car;
 
 public class Gearbox extends Component {
-    private int gear;
+    private volatile int gear;
     private final int numberOfGears;
 
     public Gearbox(String manufacturer, String model, int weight, int price) {
