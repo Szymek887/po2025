@@ -104,7 +104,7 @@ public class Car implements Runnable {
 
         double distance = Math.sqrt(Math.pow(currentX - targetX, 2) + Math.pow(currentY - targetY, 2));
 
-        if (distance > 10f) {
+        if (distance > 1f) {
             double speed = this.speed;
 
             double dx = speed * deltaTime * (targetX - currentX) / distance;
