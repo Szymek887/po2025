@@ -155,11 +155,13 @@ public class Car implements Runnable {
         this.engine.turnOn();
         this.gearbox.setFirstGear();
         this.runningState.set(true);
+        this.notifyListeners();
     }
 
     public void turnOff() {
         this.engine.turnOff();
         this.runningState.set(false);
+        this.notifyListeners();
     }
 
     public void increaseGear() {
@@ -167,6 +169,7 @@ public class Car implements Runnable {
         this.gearbox.increaseGear();
         this.engine.decreaseRevs(3000);
         this.clutch.releaseClutch();
+        this.notifyListeners();
     }
 
     public void decreaseGear() {
@@ -174,6 +177,7 @@ public class Car implements Runnable {
         this.gearbox.decreaseGear();
         this.engine.increaseRevs(3000);
         this.clutch.releaseClutch();
+        this.notifyListeners();
     }
 
     public void rideTo(Position newPosition) {

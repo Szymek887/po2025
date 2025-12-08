@@ -7,168 +7,44 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.Menu;
-import javafx.scene.control.MenuBar;
-import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
-import javafx.scene.control.TitledPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 
 public class MainController implements Listener {
-    private Car car;
+    private Car selectedCar;
 
-    // --- Layout Containers ---
-    @FXML
-    private BorderPane mainBorderPane;
-
-    @FXML
-    private VBox leftVBox;
-
-    @FXML
-    private VBox centerVBox;
-
-    @FXML
-    private HBox selectionHBox;
-
-    // --- Menu Bar ---
-    @FXML
-    private MenuBar mainMenuBar;
-
-    @FXML
-    private Menu fileMenu;
-
-    @FXML
-    private MenuItem newMenuItem;
-
-    @FXML
-    private MenuItem openMenuItem;
-
-    @FXML
-    private MenuItem saveMenuItem;
-
-    @FXML
-    private Menu editMenu;
-
-    @FXML
-    private MenuItem cutMenuItem;
-
-    @FXML
-    private MenuItem copyMenuItem;
-
-    @FXML
-    private MenuItem pasteMenuItem;
-
-    // --- Car Details Section ---
-    @FXML
-    private TitledPane carDetailsPane;
-
-    @FXML
-    private TextField modelTextField;
-
-    @FXML
-    private TextField regNumberTextField;
-
-    @FXML
-    private TextField carWeightTextField;
-
-    @FXML
-    private TextField speedTextField;
-
-    @FXML
-    private Button turnOnButton;
-
-    @FXML
-    private Button turnOffButton;
+    @FXML private TextField modelTextField;
+    @FXML private TextField regNumberTextField;
+    @FXML private TextField carWeightTextField;
+    @FXML private TextField speedTextField;
 
     // --- Gearbox Section ---
-    @FXML
-    private TitledPane gearboxPane;
-
-    @FXML
-    private TextField gearboxNameTextField;
-
-    @FXML
-    private TextField gearboxPriceTextField;
-
-    @FXML
-    private TextField gearboxWeightTextField;
-
-    @FXML
-    private TextField gearTextField;
-
-    @FXML
-    private Button increaseGearButton;
-
-    @FXML
-    private Button decreaseGearButton;
+    @FXML private TextField gearboxNameTextField;
+    @FXML private TextField gearboxPriceTextField;
+    @FXML private TextField gearboxWeightTextField;
+    @FXML private TextField gearTextField;
 
     // --- Engine Section ---
-    @FXML
-    private TitledPane enginePane;
-
-    @FXML
-    private TextField engineNameTextField;
-
-    @FXML
-    private TextField enginePriceTextField;
-
-    @FXML
-    private TextField engineWeightTextField;
-
-    @FXML
-    private TextField rpmTextField;
-
-    @FXML
-    private Button speedUpButton;
-
-    @FXML
-    private Button speedDownButton;
+    @FXML private TextField engineNameTextField;
+    @FXML private TextField enginePriceTextField;
+    @FXML private TextField engineWeightTextField;
+    @FXML private TextField rpmTextField;
 
     // --- Clutch Section ---
-    @FXML
-    private TitledPane clutchPane;
-
-    @FXML
-    private TextField clutchNameTextField;
-
-    @FXML
-    private TextField clutchPriceTextField;
-
-    @FXML
-    private TextField clutchWeightTextField;
-
-    @FXML
-    private TextField clutchStatusTextField;
-
-    @FXML
-    private Button depressClutchButton;
+    @FXML private TextField clutchNameTextField;
+    @FXML private TextField clutchPriceTextField;
+    @FXML private TextField clutchWeightTextField;
+    @FXML private TextField clutchStatusTextField;
 
     // --- Center View (Selection & Map) ---
-    @FXML
-    private ComboBox<Car> carComboBox;
-
-    @FXML
-    private Button addCarButton;
-
-    @FXML
-    private Button removeCarButton;
-
-    @FXML
-    private Text mapText;
-
-    @FXML
-    private ImageView carImageView;
+    @FXML private ComboBox<Car> carComboBox;
+    @FXML private ImageView carImageView;
 
     /**
      * Initializes the controller class.
@@ -176,117 +52,147 @@ public class MainController implements Listener {
      */
     @FXML
     private void initialize() {
-        // Populate list of cars with sample data
-        this.car = new Car();
+        this.setupSimulation();
 
-        Car car2 = new Car("Sporty",
-                    "SP 12345",
-                    100,
-                    new Engine("EngineCo", "V8 Turbo", 200, 1000),
-                    new Gearbox("GearboxInc", "6-Speed Manual", 150, 1000),
-                    new Clutch("ClutchLtd", "Performance Clutch", 50, 1000));
+        this.setupMapIcon();
 
-        this.car.addListener(this);
-        this.car.startSimulation();
+        if (carComboBox.getItems().isEmpty()) {
 
-        car2.addListener(this);
-        car2.startSimulation();
-
-        this.carComboBox.getItems().add(this.car);
-        this.carComboBox.getItems().add(car2);
-        this.carComboBox.getSelectionModel().select(0);
-
-        // Add car icon in default position
-        Image carImage = new Image(getClass().getResource("/com/szymczak/images/car.jpg").toExternalForm());
-        System.out.println("Width: " + carImage.getWidth() + ",Height: " + carImage.getHeight());
-
-        this.carImageView.setImage(carImage);
-
-        this.carImageView.setFitWidth(30);
-        this.carImageView.setFitHeight(20);
-
+        }
         this.carImageView.setTranslateX(0);
         this.carImageView.setTranslateY(0);
 
-        // Initial refresh of GUI fields
-        this.refresh();
+        if (!carComboBox.getItems().isEmpty()) {
+            this.selectCar(carComboBox.getItems().getFirst());
+            this.carComboBox.getSelectionModel().selectFirst();
+        }
     }
 
-    private void refresh() {
-        CarData carData = this.car.getCarData();
+    private void setupSimulation() {
+        Car defaultCar = new Car();
+        defaultCar.startSimulation();
 
-        Platform.runLater(() -> {
-            // Car Fields
-            this.modelTextField.setText(carData.name());
-            this.regNumberTextField.setText(carData.regNumber());
-            this.carWeightTextField.setText(String.valueOf(carData.weight()));
-            this.speedTextField.setText(String.valueOf(carData.maxSpeed()));
+        Car sportsCar = new Car("Sporty",
+                "SP 12345",
+                100,
+                new Engine("EngineCo", "V8 Turbo", 200, 1000),
+                new Gearbox("GearboxInc", "6-Speed Manual", 150, 1000),
+                new Clutch("ClutchLtd", "Performance Clutch", 50, 1000));
+        sportsCar.startSimulation();
 
-            // Gearbox Fields
-            this.gearboxNameTextField.setText(carData.gearboxName());
-            this.gearboxPriceTextField.setText(String.valueOf(carData.gearboxPrice()));
-            this.gearboxWeightTextField.setText(String.valueOf(carData.gearboxWeight()));
-            this.gearTextField.setText(String.valueOf(carData.gear()));
-
-            // Engine Fields
-            this.engineNameTextField.setText(carData.engineName());
-            this.enginePriceTextField.setText(String.valueOf(carData.enginePrice()));
-            this.engineWeightTextField.setText(String.valueOf(carData.engineWeight()));
-            this.rpmTextField.setText(String.valueOf(carData.engineRevs()));
-
-            // Clutch Fields
-            this.clutchNameTextField.setText(carData.clutchName());
-            this.clutchPriceTextField.setText(String.valueOf(carData.clutchPrice()));
-            this.clutchWeightTextField.setText(String.valueOf(carData.clutchWeight()));
-            this.clutchStatusTextField.setText(carData.isClutchPressed() ? "Pressed" : "Released");
-
-            // Car Position
-            this.carImageView.setTranslateX(carData.position().getX());
-            this.carImageView.setTranslateY(carData.position().getY());
-        });
+        this.carComboBox.getItems().addAll(defaultCar, sportsCar);
     }
 
-    @FXML
-    private void handleTurnOnButton() {
-        this.car.turnOn();
-        this.refresh();
+    private void setupMapIcon() {
+        Image carImage = new Image(getClass().getResource("/com/szymczak/images/car.jpg").toExternalForm());
+        this.carImageView.setImage(carImage);
+        this.carImageView.setFitWidth(30);
+        this.carImageView.setFitHeight(20);
     }
 
-    @FXML
-    private void handleTurnOffButton() {
-        this.car.turnOff();
-        this.refresh();
-    }
+    public void selectCar(Car newCar) {
+        if (this.selectedCar != null) {
+            this.selectedCar.removeListener(this);
+        }
 
-    @FXML
-    private void handleIncreaseGearButton() {
-        this.car.increaseGear();
-        this.refresh();
-    }
+        this.selectedCar = newCar;
 
-    @FXML
-    private void handleDecreaseGearButton() {
-        this.car.decreaseGear();
-        this.refresh();
-    }
-
-    @FXML
-    private void handleCarComboBox() {
-        Car selectedCar = this.carComboBox.getSelectionModel().getSelectedItem();
-        if (selectedCar != null) {
-            this.car = selectedCar;
+        if (this.selectedCar != null) {
+            this.selectedCar.addListener(this);
             this.refresh();
         }
     }
 
-    @FXML
-    private void handleAddCarButton() throws IOException {
-        this.openAddCarWindow();
+    public void update() {
+        Platform.runLater(this::refresh);
     }
 
-    private void openAddCarWindow() throws IOException {
+    private void refresh() {
+        if (this.selectedCar == null) return;
+
+        CarData carData = this.selectedCar.getCarData();
+
+        this.updateCarDetails(carData);
+        this.updateGearboxDetails(carData);
+        this.updateEngineDetails(carData);
+        this.updateClutchDetails(carData);
+        this.updateCarPosition(carData);
+    }
+
+    private void updateCarDetails(CarData data) {
+        this.modelTextField.setText(data.name());
+        this.regNumberTextField.setText(data.regNumber());
+        this.carWeightTextField.setText(String.valueOf(data.weight()));
+        this.speedTextField.setText(String.valueOf(data.maxSpeed()));
+    }
+
+    private void updateGearboxDetails(CarData data) {
+        this.gearboxNameTextField.setText(data.gearboxName());
+        this.gearboxPriceTextField.setText(String.valueOf(data.gearboxPrice()));
+        this.gearboxWeightTextField.setText(String.valueOf(data.gearboxWeight()));
+        this.gearTextField.setText(String.valueOf(data.gear()));
+    }
+
+    private void updateEngineDetails(CarData data) {
+        this.engineNameTextField.setText(data.engineName());
+        this.enginePriceTextField.setText(String.valueOf(data.enginePrice()));
+        this.engineWeightTextField.setText(String.valueOf(data.engineWeight()));
+        this.rpmTextField.setText(String.valueOf(data.engineRevs()));
+    }
+
+    private void updateClutchDetails(CarData data) {
+        this.clutchNameTextField.setText(data.clutchName());
+        this.clutchPriceTextField.setText(String.valueOf(data.clutchPrice()));
+        this.clutchWeightTextField.setText(String.valueOf(data.clutchWeight()));
+        this.clutchStatusTextField.setText(data.isClutchPressed() ? "Pressed" : "Released");
+    }
+
+    private void updateCarPosition(CarData data) {
+        this.carImageView.setTranslateX(data.position().getX());
+        this.carImageView.setTranslateY(data.position().getY());
+    }
+
+    @FXML
+    private void handleTurnOnButton() {
+        if (selectedCar != null) this.selectedCar.turnOn();
+    }
+
+    @FXML
+    private void handleTurnOffButton() {
+        if (selectedCar != null) this.selectedCar.turnOff();
+    }
+
+    @FXML
+    private void handleIncreaseGearButton() {
+        if (selectedCar != null) this.selectedCar.increaseGear();
+    }
+
+    @FXML
+    private void handleDecreaseGearButton() {
+        if (selectedCar != null) this.selectedCar.decreaseGear();
+    }
+
+    @FXML
+    private void handleCarComboBox() {
+        Car selected = this.carComboBox.getSelectionModel().getSelectedItem();
+        if (selected != null) {
+            selectCar(selected);
+        }
+    }
+
+    @FXML
+    private void handleCenterClick(MouseEvent event) {
+        if (selectedCar != null) {
+            Position newPosition = new Position();
+            newPosition.setPosition(event.getX(), event.getY());
+            this.selectedCar.rideTo(newPosition);
+        }
+    }
+
+    @FXML
+    private void handleAddCarButton() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/szymczak/cargui/add-car-view.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/szymczak/images/add-car-view.fxml"));
             Parent root = loader.load();
 
             AddCarController controller = loader.getController();
@@ -294,7 +200,7 @@ public class MainController implements Listener {
 
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
-            stage.setTitle("Add car");
+            stage.setTitle("Add Car");
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
@@ -302,19 +208,7 @@ public class MainController implements Listener {
     }
 
     public void addCar(Car car) {
+        car.startSimulation();
         this.carComboBox.getItems().add(car);
-    }
-
-    @FXML
-    private void handleCenterClick(MouseEvent event) {
-        Position newPosition = new Position();
-        newPosition.setPosition(event.getX(), event.getY());
-        System.out.println("Clicked at: " + newPosition);
-        this.car.rideTo(newPosition);
-    }
-
-    @Override
-    public void update() {
-        this.refresh();
     }
 }
