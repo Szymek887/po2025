@@ -4,8 +4,10 @@ import com.szymczak.interfaces.Listener;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.concurrent.atomic.AtomicBoolean;
 
-public class Car extends Thread {
+public class Car implements Runnable {
     private final String name;
     private final String regNumber;
     private final int weight;
@@ -13,12 +15,14 @@ public class Car extends Thread {
     private final Engine engine;
     private final Gearbox gearbox;
     private final Clutch clutch;
-    private Position currentPosition;
-    private Position targetPosition;
+    private final Position currentPosition;
+    private volatile Position targetPosition;
+    private AtomicBoolean runningState = new AtomicBoolean(false);
 
-    private List<Listener> listeners;
+    private AtomicBoolean simulationRunning = new AtomicBoolean(false);
 
-    private boolean runningState;
+    private final List<Listener> listeners = new CopyOnWriteArrayList<Listener>();
+
 
     public Car() {
         this.name = "DefaultCar";
@@ -28,28 +32,30 @@ public class Car extends Thread {
         this.engine = new Engine("DefaultEngineManufacturer", "DefaultEngineModel", 100, 1000);
         this.gearbox = new Gearbox("DefaultGearboxManufacturer", "DefaultGearboxModel", 100, 1000);
         this.clutch = new Clutch("DefaultClutchManufacturer", "DefaultClutchModel", 100, 1000);
-        this.runningState = false;
         this.currentPosition = new Position();
         this.targetPosition = new Position();
-        this.listeners = new ArrayList<Listener>();
-
-        this.start();
     }
 
     public Car(String name, String regNumber, int weight, Engine engine, Gearbox gearbox, Clutch clutch) {
         this.name = name;
         this.regNumber = regNumber;
         this.weight = weight;
-        this.speed = 100;
+        this.speed = 30;
         this.engine = engine;
         this.gearbox = gearbox;
         this.clutch = clutch;
-        this.runningState = false;
         this.currentPosition = new Position();
         this.targetPosition = new Position();
-        this.listeners = new ArrayList<Listener>();
+    }
 
-        this.start();
+    public void startSimulation() {
+        this.simulationRunning.set(true);
+        Thread thread = new Thread(this);
+        thread.start();
+    }
+
+    public void stopSimulation() {
+        this.simulationRunning.set(false);
     }
 
     public void addListener(Listener listener) {
@@ -68,64 +74,87 @@ public class Car extends Thread {
 
     @Override
     public void run() {
+        long lastTime = System.currentTimeMillis();
 
-        double deltat = 0.1;
+        while (simulationRunning.get()) {
+            long currentTime = System.currentTimeMillis();
+            double deltaTime = (currentTime - lastTime) / 1000f;
+            lastTime = currentTime;
 
-        while (true) {
-            try {
-                Thread.sleep(100);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
+            if (this.runningState.get()) {
+                updatePhysics(deltaTime);
             }
 
-            System.out.println(this.targetPosition);
-            if (targetPosition != null) {
-                double currentX = currentPosition.getX();
-                double currentY = currentPosition.getY();
-                double targetX = targetPosition.getX();
-                double targetY = targetPosition.getY();
-
-                double distance = Math.sqrt(Math.pow(targetX - currentX, 2) + Math.pow(targetY - currentY, 2));
-
-                if (distance > 10) {
-                    double velocity = (double) this.getSpeed();
-
-                    double dx = velocity * deltat * (targetX - currentX) / distance;
-                    double dy = velocity * deltat * (targetY - currentY) / distance;
-
-                    this.currentPosition.setPosition(currentX + dx, currentY + dy);
-
-                    this.notifyListeners();
-                } else {
-                    this.currentPosition.setPosition(targetX, targetY);
-                    this.targetPosition = null;
-                }
+            try {
+                Thread.sleep(50);
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+                break;
             }
         }
     }
 
-    @Override
-    public String toString() {
-        return this.name;
+    private void updatePhysics(double deltaTime) {
+        if (targetPosition == null) return;
+
+        double currentX = currentPosition.getX();
+        double currentY = currentPosition.getY();
+        double targetX = targetPosition.getX();
+        double targetY = targetPosition.getY();
+
+        double distance = Math.sqrt(Math.pow(currentX - targetX, 2) + Math.pow(currentY - targetY, 2));
+
+        if (distance > 10f) {
+            double speed = this.speed;
+
+            double dx = speed * deltaTime * (targetX - currentX) / distance;
+            double dy = speed * deltaTime * (targetY - currentY) / distance;
+
+            synchronized (currentPosition) {
+                this.currentPosition.setPosition(currentX + dx, currentY + dy);
+            }
+
+            this.notifyListeners();
+        } else {
+            synchronized (currentPosition) {
+                this.currentPosition.setPosition(targetX, targetY);
+            }
+            this.targetPosition = null;
+            this.notifyListeners();
+        }
+    }
+
+    public CarData getCarData() {
+        return new CarData(
+                this.name,
+                this.regNumber,
+                this.weight,
+                this.speed,
+                this.currentPosition,
+                this.gearbox.getModel(),
+                this.gearbox.getPrice(),
+                this.gearbox.getWeight(),
+                this.gearbox.getGear(),
+                this.engine.getModel(),
+                this.engine.getPrice(),
+                this.engine.getWeight(),
+                this.engine.getRevs(),
+                this.clutch.getModel(),
+                this.clutch.getPrice(),
+                this.clutch.getWeight(),
+                this.clutch.isPressed()
+        );
     }
 
     public void turnOn() {
         this.engine.turnOn();
         this.gearbox.setFirstGear();
-        this.runningState = true;
+        this.runningState.set(true);
     }
 
     public void turnOff() {
         this.engine.turnOff();
-        this.runningState = false;
-    }
-
-    public void setPosition(double x, double y) {
-        this.currentPosition.setPosition(x, y);
-    }
-
-    public Position getPosition() {
-        return this.currentPosition;
+        this.runningState.set(false);
     }
 
     public void increaseGear() {
@@ -140,78 +169,6 @@ public class Car extends Thread {
         this.gearbox.decreaseGear();
         this.engine.increaseRevs(3000);
         this.clutch.releaseClutch();
-    }
-
-    public void speedUp(int rpm) {
-        if (this.runningState) {
-            this.engine.increaseRevs(rpm);
-        }
-    }
-
-    public void slowDown(int rpm) {
-        if (this.runningState) {
-            this.engine.decreaseRevs(rpm);
-        }
-    }
-
-    public int getGear() {
-        return this.gearbox.getGear();
-    }
-
-    public String getRegNumber() {
-        return this.regNumber;
-    }
-
-    public int getWeight() {
-        return this.weight;
-    }
-
-    public int getSpeed() {
-        return this.speed;
-    }
-
-    public String getGearboxName() {
-        return this.gearbox.getModel();
-    }
-
-    public int getGearboxPrice() {
-        return this.gearbox.getPrice();
-    }
-
-    public int getGearboxWeight() {
-        return this.gearbox.getWeight();
-    }
-
-    public String getEngineName() {
-        return this.engine.getModel();
-    }
-
-    public int getEnginePrice() {
-        return this.engine.getPrice();
-    }
-
-    public int getEngineWeight() {
-        return this.engine.getWeight();
-    }
-
-    public int getEngineRPM() {
-        return this.engine.getRevs();
-    }
-
-    public String getClutchName() {
-        return this.clutch.getModel();
-    }
-
-    public int getClutchPrice() {
-        return this.clutch.getPrice();
-    }
-
-    public int getClutchWeight() {
-        return this.clutch.getWeight();
-    }
-
-    public boolean getClutchStatus() {
-        return this.clutch.isPressed();
     }
 
     public void rideTo(Position newPosition) {

@@ -187,7 +187,10 @@ public class MainController implements Listener {
                     new Clutch("ClutchLtd", "Performance Clutch", 50, 1000));
 
         this.car.addListener(this);
+        this.car.startSimulation();
+
         car2.addListener(this);
+        car2.startSimulation();
 
         this.carComboBox.getItems().add(this.car);
         this.carComboBox.getItems().add(car2);
@@ -210,33 +213,36 @@ public class MainController implements Listener {
     }
 
     private void refresh() {
-        // Car Fields
-        this.modelTextField.setText(this.car.toString());
-        this.regNumberTextField.setText(this.car.getRegNumber());
-        this.carWeightTextField.setText(String.valueOf(this.car.getWeight()));
-        this.speedTextField.setText(String.valueOf(this.car.getSpeed()));
-
-        // Gearbox Fields
-        this.gearboxNameTextField.setText(this.car.getGearboxName());
-        this.gearboxPriceTextField.setText(String.valueOf(this.car.getGearboxPrice()));
-        this.gearboxWeightTextField.setText(String.valueOf(this.car.getGearboxWeight()));
-        this.gearTextField.setText(String.valueOf(this.car.getGear()));
-
-        // Engine Fields
-        this.engineNameTextField.setText(this.car.getEngineName());
-        this.enginePriceTextField.setText(String.valueOf(this.car.getEnginePrice()));
-        this.engineWeightTextField.setText(String.valueOf(this.car.getEngineWeight()));
-        this.rpmTextField.setText(String.valueOf(this.car.getEngineRPM()));
-
-        // Clutch Fields
-        this.clutchNameTextField.setText(this.car.getClutchName());
-        this.clutchPriceTextField.setText(String.valueOf(this.car.getClutchPrice()));
-        this.clutchWeightTextField.setText(String.valueOf(this.car.getClutchWeight()));
-        this.clutchStatusTextField.setText(this.car.getClutchStatus() ? "Pressed" : "Released");
+        CarData carData = this.car.getCarData();
 
         Platform.runLater(() -> {
-            this.carImageView.setTranslateX(this.car.getPosition().getX());
-            this.carImageView.setTranslateY(this.car.getPosition().getY());
+            // Car Fields
+            this.modelTextField.setText(carData.name());
+            this.regNumberTextField.setText(carData.regNumber());
+            this.carWeightTextField.setText(String.valueOf(carData.weight()));
+            this.speedTextField.setText(String.valueOf(carData.maxSpeed()));
+
+            // Gearbox Fields
+            this.gearboxNameTextField.setText(carData.gearboxName());
+            this.gearboxPriceTextField.setText(String.valueOf(carData.gearboxPrice()));
+            this.gearboxWeightTextField.setText(String.valueOf(carData.gearboxWeight()));
+            this.gearTextField.setText(String.valueOf(carData.gear()));
+
+            // Engine Fields
+            this.engineNameTextField.setText(carData.engineName());
+            this.enginePriceTextField.setText(String.valueOf(carData.enginePrice()));
+            this.engineWeightTextField.setText(String.valueOf(carData.engineWeight()));
+            this.rpmTextField.setText(String.valueOf(carData.engineRevs()));
+
+            // Clutch Fields
+            this.clutchNameTextField.setText(carData.clutchName());
+            this.clutchPriceTextField.setText(String.valueOf(carData.clutchPrice()));
+            this.clutchWeightTextField.setText(String.valueOf(carData.clutchWeight()));
+            this.clutchStatusTextField.setText(carData.isClutchPressed() ? "Pressed" : "Released");
+
+            // Car Position
+            this.carImageView.setTranslateX(carData.position().getX());
+            this.carImageView.setTranslateY(carData.position().getY());
         });
     }
 
