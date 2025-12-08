@@ -192,7 +192,7 @@ public class MainController implements Listener {
     @FXML
     private void handleAddCarButton() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/szymczak/images/add-car-view.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/szymczak/cargui/add-car-view.fxml"));
             Parent root = loader.load();
 
             AddCarController controller = loader.getController();
