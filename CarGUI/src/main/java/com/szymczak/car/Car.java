@@ -125,12 +125,17 @@ public class Car implements Runnable {
     }
 
     public CarData getCarData() {
+        Position safePosition = new Position();
+        synchronized (this.currentPosition) {
+            safePosition.setPosition(this.currentPosition.getX(), this.currentPosition.getY());
+        }
+
         return new CarData(
                 this.name,
                 this.regNumber,
                 this.weight,
                 this.speed,
-                this.currentPosition,
+                safePosition,
                 this.gearbox.getModel(),
                 this.gearbox.getPrice(),
                 this.gearbox.getWeight(),
