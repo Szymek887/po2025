@@ -1,9 +1,8 @@
 package com.szymczak.cargui;
 
-import com.szymczak.car.Car;
-import com.szymczak.car.Clutch;
-import com.szymczak.car.Engine;
-import com.szymczak.car.Gearbox;
+import com.szymczak.car.*;
+import com.szymczak.interfaces.Listener;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -17,6 +16,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -25,7 +25,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class MainController {
+public class MainController implements Listener {
     private Car car;
 
     // --- Layout Containers ---
@@ -186,6 +186,9 @@ public class MainController {
                     new Gearbox("GearboxInc", "6-Speed Manual", 150, 1000),
                     new Clutch("ClutchLtd", "Performance Clutch", 50, 1000));
 
+        this.car.addListener(this);
+        car2.addListener(this);
+
         this.carComboBox.getItems().add(this.car);
         this.carComboBox.getItems().add(car2);
         this.carComboBox.getSelectionModel().select(0);
@@ -230,6 +233,11 @@ public class MainController {
         this.clutchPriceTextField.setText(String.valueOf(this.car.getClutchPrice()));
         this.clutchWeightTextField.setText(String.valueOf(this.car.getClutchWeight()));
         this.clutchStatusTextField.setText(this.car.getClutchStatus() ? "Pressed" : "Released");
+
+        Platform.runLater(() -> {
+            this.carImageView.setTranslateX(this.car.getPosition().getX());
+            this.carImageView.setTranslateY(this.car.getPosition().getY());
+        });
     }
 
     @FXML
@@ -289,5 +297,18 @@ public class MainController {
 
     public void addCar(Car car) {
         this.carComboBox.getItems().add(car);
+    }
+
+    @FXML
+    private void handleCenterClick(MouseEvent event) {
+        Position newPosition = new Position();
+        newPosition.setPosition(event.getX(), event.getY());
+        System.out.println("Clicked at: " + newPosition);
+        this.car.rideTo(newPosition);
+    }
+
+    @Override
+    public void update() {
+        this.refresh();
     }
 }

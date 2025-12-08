@@ -113,7 +113,7 @@
         </ScrollPane>
     </left>
     <center>
-        <VBox fx:id="centerVBox">
+        <VBox fx:id="centerVBox" onMouseClicked="#handleCenterClick" maxWidth="Infinity" maxHeight="Infinity">
             <Text text="Map" fx:id="mapText"/>
             <ImageView fx:id="carImageView">
                 <Image url="@../images/car.jpg"/>
