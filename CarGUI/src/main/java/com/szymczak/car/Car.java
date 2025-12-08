@@ -86,7 +86,7 @@ public class Car implements Runnable {
             }
 
             try {
-                Thread.sleep(50);
+                Thread.sleep(16);
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
                 break;
