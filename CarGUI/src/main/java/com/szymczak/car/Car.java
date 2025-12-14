@@ -11,7 +11,7 @@ public class Car implements Runnable {
     private final String name;
     private final String regNumber;
     private final int weight;
-    private final int speed;
+    private int speed;
     private final Engine engine;
     private final Gearbox gearbox;
     private final Clutch clutch;
@@ -110,10 +110,10 @@ public class Car implements Runnable {
         double distance = Math.sqrt(Math.pow(currentX - targetX, 2) + Math.pow(currentY - targetY, 2));
 
         if (distance > 1f) {
-            double speed = this.speed;
+            this.speed = this.gearbox.getCurrentSpeed(this.engine.getRevs(), this.weight);
 
-            double dx = speed * deltaTime * (targetX - currentX) / distance;
-            double dy = speed * deltaTime * (targetY - currentY) / distance;
+            double dx = this.speed * deltaTime * (targetX - currentX) / distance;
+            double dy = this.speed * deltaTime * (targetY - currentY) / distance;
 
             synchronized (currentPosition) {
                 this.currentPosition.setPosition(currentX + dx, currentY + dy);
@@ -170,22 +170,50 @@ public class Car implements Runnable {
     }
 
     public void increaseGear() {
+        double oldRatio = this.gearbox.getGearRatio();
+
         this.clutch.pressClutch();
-        this.gearbox.increaseGear();
-        this.engine.decreaseRevs(3000);
+
+        if (this.gearbox.increaseGear()) {
+            double newRatio = this.gearbox.getGearRatio();
+            int newRevs = (int)(this.engine.getRevs() * (newRatio / oldRatio));
+            this.engine.decreaseRevs(this.engine.getRevs() - newRevs);
+        } else {
+            return;
+        }
+
         this.clutch.releaseClutch();
         this.notifyListeners();
     }
 
     public void decreaseGear() {
+        double oldRatio = this.gearbox.getGearRatio();
+
         this.clutch.pressClutch();
-        this.gearbox.decreaseGear();
-        this.engine.increaseRevs(3000);
+
+        if (this.gearbox.increaseGear()) {
+            double newRatio = this.gearbox.getGearRatio();
+            int newRevs = (int)(this.engine.getRevs() * (newRatio / oldRatio));
+            this.engine.decreaseRevs(this.engine.getRevs() - newRevs);
+        } else {
+            return;
+        }
+
         this.clutch.releaseClutch();
         this.notifyListeners();
     }
 
     public void rideTo(Position newPosition) {
         this.targetPosition = newPosition;
+    }
+
+    public void speedUp() {
+        this.engine.increaseRevs(500);
+        this.notifyListeners();
+    }
+
+    public void slowDown() {
+        this.engine.decreaseRevs(500);
+        this.notifyListeners();
     }
 }

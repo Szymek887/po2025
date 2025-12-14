@@ -174,6 +174,14 @@ public class MainController implements Listener {
         if (selectedCar != null) this.selectedCar.decreaseGear();
     }
 
+    @FXML void handleSpeedUpButton() {
+        if (selectedCar != null) this.selectedCar.speedUp();
+    }
+
+    @FXML void handleSlowDownButton() {
+        if (selectedCar != null) this.selectedCar.slowDown();
+    }
+
     @FXML
     private void handleCarComboBox() {
         Car selected = this.carComboBox.getSelectionModel().getSelectedItem();

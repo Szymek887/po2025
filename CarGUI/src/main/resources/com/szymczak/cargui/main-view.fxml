@@ -88,8 +88,8 @@
                         <Label text="RPM"/>
                         <TextField fx:id="rpmTextField" editable="false"/>
                         <HBox spacing="10">
-                            <Button text="Speed Up" fx:id="speedUpButton"/>
-                            <Button text="Speed Down" fx:id="speedDownButton"/>
+                            <Button text="Speed Up" fx:id="speedUpButton" onMouseClicked="#handleSpeedUpButton"/>
+                            <Button text="Slow Down" fx:id="speedDownButton" onMouseClicked="#handleSlowDownButton"/>
                         </HBox>
                     </VBox>
                 </TitledPane>
