@@ -222,4 +222,14 @@ public class MainController implements Listener {
         this.carComboBox.getItems().add(car);
         this.carComboBox.getSelectionModel().select(car);
     }
+
+    @FXML
+    public void handleClutchPressButton() {
+        if (selectedCar != null) this.selectedCar.pressClutch();
+    }
+
+    @FXML
+    public void handleClutchReleaseButton() {
+        if (selectedCar != null) this.selectedCar.releaseClutch();
+    }
 }

@@ -176,7 +176,7 @@ public class Car implements Runnable {
 
         if (this.gearbox.increaseGear()) {
             double newRatio = this.gearbox.getGearRatio();
-            int newRevs = (int)(this.engine.getRevs() * (newRatio / oldRatio));
+            int newRevs = (int) (this.engine.getRevs() * (newRatio / oldRatio));
             this.engine.decreaseRevs(this.engine.getRevs() - newRevs);
         } else {
             return;
@@ -193,7 +193,7 @@ public class Car implements Runnable {
 
         if (this.gearbox.increaseGear()) {
             double newRatio = this.gearbox.getGearRatio();
-            int newRevs = (int)(this.engine.getRevs() * (newRatio / oldRatio));
+            int newRevs = (int) (this.engine.getRevs() * (newRatio / oldRatio));
             this.engine.decreaseRevs(this.engine.getRevs() - newRevs);
         } else {
             return;
@@ -214,6 +214,16 @@ public class Car implements Runnable {
 
     public void slowDown() {
         this.engine.decreaseRevs(500);
+        this.notifyListeners();
+    }
+
+    public void pressClutch() {
+        this.clutch.pressClutch();
+        this.notifyListeners();
+    }
+
+    public void releaseClutch() {
+        this.clutch.releaseClutch();
         this.notifyListeners();
     }
 }

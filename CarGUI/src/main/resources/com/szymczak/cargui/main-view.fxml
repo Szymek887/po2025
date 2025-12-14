@@ -104,8 +104,8 @@
                         <Label text="Status"/>
                         <TextField fx:id="clutchStatusTextField" editable="false"/>
                         <HBox spacing="10">
-                            <Button text="Press" fx:id="pressClutchButton"/>
-                            <Button text="Depress" fx:id="depressClutchButton"/>
+                            <Button text="Press" fx:id="pressClutchButton" onMouseClicked="#handleClutchPressButton"/>
+                            <Button text="Release" fx:id="depressClutchButton" onMouseClicked="#handleClutchReleaseButton"/>
                         </HBox>
                     </VBox>
                 </TitledPane>
