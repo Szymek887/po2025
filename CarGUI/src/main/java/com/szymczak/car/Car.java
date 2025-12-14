@@ -36,11 +36,11 @@ public class Car implements Runnable {
         this.targetPosition = new Position();
     }
 
-    public Car(String name, String regNumber, int weight, Engine engine, Gearbox gearbox, Clutch clutch) {
+    public Car(String name, String regNumber, int weight, int maxSpeed, Engine engine, Gearbox gearbox, Clutch clutch) {
         this.name = name;
         this.regNumber = regNumber;
         this.weight = weight;
-        this.speed = 30;
+        this.speed = maxSpeed;
         this.engine = engine;
         this.gearbox = gearbox;
         this.clutch = clutch;

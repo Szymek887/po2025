@@ -76,6 +76,7 @@ public class MainController implements Listener {
         Car sportsCar = new Car("Sporty",
                 "SP 12345",
                 100,
+                200,
                 new Engine("EngineCo", "V8 Turbo", 200, 1000),
                 new Gearbox("GearboxInc", "6-Speed Manual", 150, 1000),
                 new Clutch("ClutchLtd", "Performance Clutch", 50, 1000));

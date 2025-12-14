@@ -25,6 +25,8 @@
     <TextField fx:id="regNumberTextField"/>
     <Label text="Weight:"/>
     <TextField fx:id="weightTextField"/>
+    <Label text="Max Speed:"/>
+    <TextField fx:id="maxSpeedTextField"/>
 
     <Label text="Gearbox:"/>
     <ComboBox fx:id="gearboxComboBox"/>

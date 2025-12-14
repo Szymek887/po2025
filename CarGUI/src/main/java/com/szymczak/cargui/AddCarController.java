@@ -43,6 +43,9 @@ public class AddCarController {
     private Button cancelButton;
 
     @FXML
+    private TextField maxSpeedTextField;
+
+    @FXML
     private void initialize() {
         gearboxComboBox.getItems().addAll(
                 new Gearbox("GearboxCo", "Model A", 5, 150, 1200),
@@ -72,6 +75,16 @@ public class AddCarController {
             return;
         }
 
+        int maxSpeed;
+
+        try {
+            maxSpeed = Integer.parseInt(maxSpeedTextField.getText());
+        } catch (NumberFormatException e) {
+            this.errorText.setText("Max Speed should be a number");
+            this.errorText.setVisible(true);
+            return;
+        }
+
         Gearbox gearbox = gearboxComboBox.getSelectionModel().getSelectedItem();
         Engine engine = engineComboBox.getSelectionModel().getSelectedItem();
 
@@ -81,7 +94,7 @@ public class AddCarController {
             return;
         }
 
-        Car newCar = new Car(model, regNumber, weight, engine, gearbox, new Clutch("test", "test", 100, 100));
+        Car newCar = new Car(model, regNumber, weight, maxSpeed, engine, gearbox, new Clutch("test", "test", 100, 100));
         if (mainController != null) {
             mainController.addCar(newCar);
         }
