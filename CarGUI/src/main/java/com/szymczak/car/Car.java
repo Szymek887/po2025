@@ -48,6 +48,11 @@ public class Car implements Runnable {
         this.targetPosition = new Position();
     }
 
+    @Override
+    public String toString() {
+        return this.name;
+    }
+
     public void startSimulation() {
         this.simulationRunning.set(true);
         Thread thread = new Thread(this);

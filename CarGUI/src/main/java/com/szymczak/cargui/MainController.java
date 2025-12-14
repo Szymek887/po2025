@@ -211,5 +211,6 @@ public class MainController implements Listener {
     public void addCar(Car car) {
         car.startSimulation();
         this.carComboBox.getItems().add(car);
+        this.carComboBox.getSelectionModel().select(car);
     }
 }
