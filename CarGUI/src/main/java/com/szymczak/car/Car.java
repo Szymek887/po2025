@@ -2,7 +2,6 @@ package com.szymczak.car;
 
 import com.szymczak.interfaces.Listener;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -17,11 +16,11 @@ public class Car implements Runnable {
     private final Clutch clutch;
     private final Position currentPosition;
     private volatile Position targetPosition;
-    private AtomicBoolean runningState = new AtomicBoolean(false);
+    private final AtomicBoolean runningState = new AtomicBoolean(false);
 
-    private AtomicBoolean simulationRunning = new AtomicBoolean(false);
+    private final AtomicBoolean simulationRunning = new AtomicBoolean(false);
 
-    private final List<Listener> listeners = new CopyOnWriteArrayList<Listener>();
+    private final List<Listener> listeners = new CopyOnWriteArrayList<>();
 
 
     public Car() {
