@@ -102,6 +102,8 @@ public class MainController implements Listener {
         if (this.selectedCar != null) {
             this.selectedCar.addListener(this);
             this.refresh();
+        } else {
+            this.refresh();
         }
     }
 
@@ -110,7 +112,10 @@ public class MainController implements Listener {
     }
 
     private void refresh() {
-        if (this.selectedCar == null) return;
+        if (this.selectedCar == null) {
+            this.clearFields();
+            return;
+        }
 
         CarData carData = this.selectedCar.getCarData();
 
@@ -152,6 +157,31 @@ public class MainController implements Listener {
     private void updateCarPosition(CarData data) {
         this.carImageView.setTranslateX(data.position().getX());
         this.carImageView.setTranslateY(data.position().getY());
+    }
+
+    private void clearFields() {
+        this.modelTextField.clear();
+        this.regNumberTextField.clear();
+        this.carWeightTextField.clear();
+        this.speedTextField.clear();
+
+        this.gearboxNameTextField.clear();
+        this.gearboxPriceTextField.clear();
+        this.gearboxWeightTextField.clear();
+        this.gearTextField.clear();
+
+        this.engineNameTextField.clear();
+        this.enginePriceTextField.clear();
+        this.engineWeightTextField.clear();
+        this.rpmTextField.clear();
+
+        this.clutchNameTextField.clear();
+        this.clutchPriceTextField.clear();
+        this.clutchWeightTextField.clear();
+        this.clutchStatusTextField.clear();
+
+        this.carImageView.setTranslateX(0);
+        this.carImageView.setTranslateY(0);
     }
 
     @FXML
@@ -231,5 +261,19 @@ public class MainController implements Listener {
     @FXML
     public void handleClutchReleaseButton() {
         if (selectedCar != null) this.selectedCar.releaseClutch();
+    }
+
+    @FXML
+    public void handleCarDeleteButton() {
+        if (selectedCar != null) {
+            selectedCar.stopSimulation();
+            carComboBox.getItems().remove(selectedCar);
+            if (!carComboBox.getItems().isEmpty()) {
+                selectCar(carComboBox.getItems().getFirst());
+                carComboBox.getSelectionModel().selectFirst();
+            } else {
+                selectCar(null);
+            }
+        }
     }
 }

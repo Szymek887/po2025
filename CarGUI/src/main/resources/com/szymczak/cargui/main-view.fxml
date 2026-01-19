@@ -38,7 +38,7 @@
                 <Label text="Select Car:"/>
                 <ComboBox promptText="Choose a car..." fx:id="carComboBox" onAction="#handleCarComboBox"/>
                 <Button text="Add Car" fx:id="addCarButton" onAction="#handleAddCarButton"/>
-                <Button text="Remove Car" fx:id="removeCarButton"/>
+                <Button text="Remove Car" fx:id="removeCarButton" onAction="#handleCarDeleteButton" />
             </HBox>
         </VBox>
     </top>
